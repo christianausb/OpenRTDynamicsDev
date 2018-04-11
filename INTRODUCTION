@@ -1,0 +1,48 @@
+The Real Time Dynamics Toolbox is a noval approach to the implementation of block- / signal-based schematics, commonly used in control engineering and signal processing, for real time usage (like Real-Time Workshop® or Scicos Code Generation). It is suitable for implementing time discrete signal processing algorithms, like one would do in Scicos or Simulink, within Scilab scripts (Matlab like) by using functions provided by an included Scilab Toolbox in order to set-up a description of the schematic. This way, well structured code can be achieved, whereby i.e. the filter design could be included nearby the implementation for better review. Additionally, functional and object orientated design schemes can be realised. The latter feature enables the possibility to implement reusable parametrised sub-schematics that may also change in its structure based on parametrisation.
+
+The generation of the description for the schematic (which would be equivalent to code generation in Scicos/Simulink) does not involve source code generation / compilation steps and therefore does not rely on  C-compilers for the target system that had to be installed on the development computer. Scilab along with the installed toolbox is sufficient for development.
+
+Further, along with the remote control interface and the ability to implement state machines, to run different simulations in threads (e.g. to distribute calculations accross multiple CPUs) and to include Scilab-Code as computational functions (S-function like), ORTD is also ideally suited for laboratory automation. The ability to replace sub-schematics with new implementations and parameters during runtime removes the effort of restarting the main real-time program. Simulations running in threads can also be synchronised to sensor updates or other events. 
+
+ORTD can be easily integrated into other simulation frameworks e.g. Scicos or used within other software by including a shared library.
+
+
+
+
+The latestest versions include highly advanced features like
+
+* Online replacement of sub-controllers; Yes, can can exchange wires and blocks during the controller is running (modules/nested)
+* State machines (modules/nested)
+* Simulations running in threads (modules/nested)
+* Mathematical formula parsing (modules/muparser)
+* Vector handling blocks (modules/basic_ldblocks)
+* Calling Scilab from the simulation (modules/scilab)
+* Remote control interface (modules/rt_server)
+* Starting external processes (modules/ext_process)
+* Timer for simulations running in threads (pending) (modules/synchronisation)
+* Scicos to ORTD block wrapper (modules/scicos_blocks)
+
+
+Further information is found on the projects website http://openrtdynamics.sourceforge.net/.
+
+UPDATES
+
+24.9.2011 - new version 0.99f
+4.11.2011 - new version 0.99g
+16.11.2011 - Added some slides that serve as an introduction.
+28.3.2012 - Updated the slides.
+8.6.2012 - Updated the slides.
+
+
+The newest version is found in subversion and can be installed by a graphical 
+userinterface via pasting
+
+  sudo apt-get install g++ make subversion
+
+and 
+
+  wget openrtdynamics.sf.net/getit.sh -O - | bash
+
+into your Terminal on Linux. (See http://openrtdynamics.sourceforge.net/bigace/public/index.php?cmd=smarty&id=6_len).
+
+For further information please read the README file.

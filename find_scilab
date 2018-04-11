@@ -1,0 +1,154 @@
+#!/bin/bash
+
+ortddir=`pwd`
+
+installed_scilab="no"
+
+
+
+#if zenity --question --text "Shall I install scilab 5 for you?"
+if false
+then
+    echo "installing scilab5"; 
+
+    zenity --info --text "Tell me the directory where you like to install Scilab. A subdirectory will be created. The package wget is required."
+
+
+
+    scilabinstdir=`zenity --file-selection --directory`
+
+    cd $scilabinstdir
+
+    ls    
+
+    hostarch=`arch`
+    if [ $hostarch = "x86_64" ]
+    then
+      echo "Installing 64 Bit Scilab"
+      wget -c "http://www.scilab.org/download/5.4.1/scilab-5.4.1.bin.linux-x86_64.tar.gz"
+               
+      tar xfvz "scilab-5.4.1.bin.linux-x86_64.tar.gz"
+    else
+      echo "Installing 32 Bit Scilab"
+      wget -c "http://www.scilab.org/download/5.4.1/scilab-5.4.1.bin.linux-i686.tar.gz"
+      tar xfvz "scilab-5.4.1.bin.linux-i686.tar.gz"
+    fi
+
+
+    scilabdir=$scilabinstdir"/scilab-5.4.1/"
+
+    zenity --info --text "You will find the Scilab executable in: $scilabdir""bin/scilab"
+
+    installed_scilab="yes"
+    cd $ortddir
+    echo $scilabdir > scilabdir.conf
+
+fi
+
+
+#echo "installed scilab: $installed_scilab"
+
+
+
+success=no # initially scilab was not found
+
+if [ "yes" = $installed_scilab  ]
+then
+  echo ok
+  success="yes"
+else
+
+  ask_again="yes"
+  while [ "yes" = $ask_again ]; do
+    echo "while"
+
+    # ask user for scilab5
+
+    echo "Tell me your Scilab 5 directory (installation from the archive available at the Scilab webpage)"
+    zenity --info --text "Tell me your Scilab 5 directory (installation from the archive available at the Scilab webpage www.scilab.org)"
+
+
+    #read scilabdir
+
+    scilabdir=`zenity --title "Select the directory in which Scilab has been installed" --file-selection --directory`
+
+#     if [ "" = $scilabdir ]; then
+#       echo "user abort"
+#       exit 0
+#     fi
+
+
+    cd $scilabdir
+    pwd
+
+
+
+    ./bin/scilab -nwni -e quit | grep -i scilab && success=yes
+
+    echo $success
+
+    if [ "yes" = $success ]; then
+      echo "scilab was found within $scilabdir"
+      zenity --info --text "Scilab was found within $scilabdir"
+      ask_again="no"
+      cd $ortddir
+      echo $scilabdir > scilabdir.conf
+    else
+      echo "Scilab was not found within $scilabdir"
+#      zenity --info --text "Scilab was NOT found within $scilabdir"
+
+      ask_again="no"
+      if zenity --question --text "Scilab was NOT found within $scilabdir. Try again?"
+      then
+        ask_again="yes"
+      fi
+
+      #exit -1
+    fi
+
+  done
+
+
+fi
+
+
+# if [ "yes" = $success ]; then
+#   echo "scilab was found within $scilabdir"
+#   zenity --info --text "Scilab was found within $scilabdir"
+#   cd $ortddir
+#   echo $scilabdir > scilabdir.conf
+# else
+#   echo "Scilab was not found within $scilabdir"
+#   zenity --info --text "Scilab was NOT found within $scilabdir"
+#   exit -1
+# fi
+
+
+
+
+if [ "yes" = $success ]; then
+
+  ortddir=`pwd`
+  scilabdir=`cat scilabdir.conf`
+
+  cd $scilabdir
+  cd share/scilab/contrib
+
+  if [ -e ld_toolbox ]
+  then
+    echo "Toolbox already exists!"
+    zenity --question --text "Toolbox seems to be already installed. Shall I replace the installation?" && ( rm ld_toolbox )
+  fi
+
+  if [ -e ld_toolbox ]
+  then
+    exit 0
+  fi
+
+  # create the link
+  ln -s $ortddir/scilab/ld_toolbox . && ( echo "A new link named ld_toolbox was created within `pwd`."; ls -l )
+
+  # write the configuration file
+  echo "$ortddir" > "$ortddir/scilab/ld_toolbox/etc/ortd_path.conf"
+
+fi

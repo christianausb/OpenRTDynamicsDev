@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GuiInterface</class>
+ <widget class="QMainWindow" name="GuiInterface">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>838</width>
+    <height>316</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GuiInterface</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QPL_Scope" name="scope_ref">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>361</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Plotting</string>
+    </property>
+    <property name="whatsThis">
+     <string>The Scope plots data</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_ref">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>10</y>
+      <width>71</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Reference</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="switch_schematic">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>50</y>
+      <width>251</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>oscillator</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>play sequence</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QDoubleSpinBox" name="doubleSpinBox">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>190</y>
+      <width>62</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="maximum">
+     <double>300.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>50.000000000000000</double>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>838</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QPL_Scope</class>
+   <extends>QwtPlot</extends>
+   <header>scope.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
