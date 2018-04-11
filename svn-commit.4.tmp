@@ -1,6 +1,0 @@
-blocks
---This line, and those below, will be ignored--
-
-M    modules/basic_ldblocks/basicCppBlocks.cpp
-M    modules/basic_ldblocks/basic_ldblocks.c
-M    modules/basic_ldblocks/scilab_loader.sce
