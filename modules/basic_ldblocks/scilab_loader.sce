@@ -1351,7 +1351,7 @@ function [sim, out] = ld_SetBitsInt32(sim, events, in, BitPattern, BitNrStart, N
 // out *(INT32) - output
 //
 // BitNrStart - position in the input at which to start copying bits. Counting starts at zero
-// NUmBits - number of bits to copy (NOTE; only ==1 works by now)
+// NUmBits - number of bits to copy
 // 
 
 if ORTD.FASTCOMPILE==%f then
@@ -1380,7 +1380,7 @@ function [sim, out] = ld_GetBitsInt32(sim, events, in, BitNrStart, NumBits) // P
 // out *(INT32) - output
 //
 // BitNrStart - position in the input at which to start copying bits. Counting starts at zero
-// NUmBits - number of bits to copy (NOTE; only ==1 works by now)
+// NUmBits - number of bits to copy
 // 
 
 if ORTD.FASTCOMPILE==%f then

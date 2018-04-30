@@ -2207,10 +2207,13 @@ int compu_func_ld_SetBitsInt32(int flag, struct dynlib_block_t *block)
         
 	uint32_t BitNrStart = ipar[0];
 	uint32_t NumBits = ipar[1];
-
-        
 	
-	uint32_t Mask = 1 << BitNrStart;
+        uint32_t Mask = 0xffffffff;
+	Mask = Mask >> ( 32-NumBits );   // 000000000111 remains if NumBits == 3
+	Mask = Mask << BitNrStart;	 // 000000011100 if Further BitNrStart == 2
+	
+	// uint32_t Mask = 1 << BitNrStart;
+	
 	uint32_t NotMask = ~Mask;
 // 	uint32_t ValidMask = 
 	
@@ -2272,9 +2275,12 @@ int compu_func_ld_GetBitsInt32(int flag, struct dynlib_block_t *block)
 	uint32_t BitNrStart = ipar[0];
 	uint32_t NumBits = ipar[1];
 
-        
+        uint32_t Mask = 0xffffffff;
+	Mask = Mask >> ( 32-NumBits );   // 000000000111 remains if NumBits == 3
+	Mask = Mask << BitNrStart;	 // 000000011100 if Further BitNrStart == 2
+
 	
-	uint32_t Mask = 1 << BitNrStart;
+//	uint32_t Mask = 1 << BitNrStart;
 	uint32_t NotMask = ~Mask;
 	
 	*out = ( Mask & *in ) >> BitNrStart;
